@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蓝心AI · 商业诊断系统</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F6F1E8;
+  --bg-white: #FFFFFF;
+  --bg-card: #FDFBF7;
+  --text-primary: #102033;
+  --text-secondary: #5D6673;
+  --text-muted: #8A939E;
+  --gold: #C99A2E;
+  --gold-hover: #B8891F;
+  --border: #E6DED2;
+  --navy: #102033;
+  --navy-light: #13263A;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(246, 241, 232, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--navy);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.logo-text { line-height: 1.2; }
+.logo-text span:first-child { display: block; font-size: 15px; font-weight: 600; color: var(--navy); }
+.logo-text span:last-child { display: block; font-size: 11px; color: var(--text-muted); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--navy); }
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+}
+
+.btn-nav {
+  background: var(--gold);
+  color: white;
+  padding: 9px 22px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn-nav:hover { background: var(--gold-hover); }
+
+/* HERO */
+.hero {
+  padding: 72px 48px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 0.75fr;
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.hero-left { padding-top: 16px; }
+
+.hero-title {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: white;
+  padding: 13px 28px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-primary:hover { background: var(--gold-hover); transform: translateY(-1px); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  padding: 13px 28px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover { border-color: var(--navy); background: rgba(16,32,51,0.04); }
+
+.hero-badges {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* AI CHAT WIDGET */
+.chat-widget {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(16,32,51,0.08);
+}
+
+.chat-header {
+  background: var(--navy);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.chat-name { color: white; font-size: 13px; font-weight: 500; }
+.chat-sub { color: rgba(255,255,255,0.5); font-size: 11px; }
+
+.online-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #4ADE80;
+}
+
+.online-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ADE80;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.chat-body { padding: 18px; background: #F8F9FA; min-height: 180px; }
+
+.chat-msg {
+  background: white;
+  border-radius: 0 12px 12px 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  border: 1px solid #EAEAEA;
+  max-width: 90%;
+}
+
+.chat-footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+}
+
+.chat-input {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-muted);
+  background: #F6F6F6;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 14px;
+  outline: none;
+}
+
+.chat-send {
+  width: 32px;
+  height: 32px;
+  background: var(--gold);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+}
+
+/* MISCONCEPTIONS */
+.misconceptions {
+  background: white;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+
+.misc-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.misc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #F0EDE8;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.misc-item:last-of-type { border-bottom: none; }
+.misc-item:hover { opacity: 0.7; }
+
+.misc-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #F0EDE8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.misc-text strong { display: block; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.misc-text span { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+.misc-more {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: var(--gold);
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+/* SECTIONS */
+section { padding: 80px 48px; }
+section.alt { background: white; }
+
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.section-sub {
+  text-align: center;
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-bottom: 48px;
+}
+
+/* GOAL GRID */
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.goal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.goal-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,154,46,0.12);
+}
+
+.goal-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.goal-icon.blue { background: #EEF4FF; }
+.goal-icon.green { background: #EEFAF4; }
+.goal-icon.purple { background: #F4EEFF; }
+.goal-icon.orange { background: #FFF4EE; }
+
+.goal-name { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.goal-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+.goal-arrow {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.goal-card:hover .goal-arrow {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: white;
+}
+
+.more-link {
+  text-align: center;
+  display: block;
+  font-size: 14px;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+/* STEPS */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.step {
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 28px;
+  font-size: 18px;
+  color: var(--border);
+}
+
+.step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 14px;
+}
+
+.step-name { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+.step-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+/* REPORT SECTION */
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.report-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(16,32,51,0.06);
+}
+
+.report-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.report-tag {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.report-badge {
+  font-size: 11px;
+  color: var(--gold);
+  background: rgba(201,154,46,0.1);
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.report-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.report-item {
+  background: #F8F7F5;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.report-item-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 6px;
+}
+
+.report-item-icon { font-size: 14px; }
+.report-item-name { font-size: 12px; font-weight: 600; color: var(--navy); }
+
+.report-item-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+
+.report-right { padding-left: 16px; }
+.report-right h3 { font-size: 24px; font-weight: 700; color: var(--navy); margin-bottom: 14px; line-height: 1.3; }
+.report-right p { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7; }
+
+.btn-cta {
+  background: var(--gold);
+  color: white;
+  padding: 13px 28px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-cta:hover { background: var(--gold-hover); }
+
+/* PRODUCTS */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all 0.2s;
+}
+
+.product-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 28px rgba(201,154,46,0.1);
+}
+
+.product-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(201,154,46,0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.product-name { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.product-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px; }
+.product-fit { font-size: 12px; color: var(--text-muted); margin-bottom: 18px; }
+
+.product-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+  background: var(--navy);
+  padding: 40px 48px;
+  text-align: center;
+}
+
+.footer-stat {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-logo span { font-size: 16px; }
+
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .goal-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .step:not(:last-child)::after { display: none; }
+  .report-grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 40px 20px; }
+  .hero-title { font-size: 36px; }
+  section { padding: 56px 20px; }
+  .goal-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">蓝</div>
+    <div class="logo-text">
+      <span>蓝心 AI</span>
+      <span>商业人效杠杆系统</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" class="active">首页</a></li>
+    <li><a href="#diagnosis">诊断系统</a></li>
+    <li><a href="#ai">蓝心 AI</a></li>
+    <li><a href="#solutions">解决方案</a></li>
+    <li><a href="#cases">案例故事</a></li>
+    <li><a href="#about">关于我们</a></li>
+  </ul>
+  <button class="btn-nav">开始诊断</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <h1 class="hero-title">让你的生意<br>自动转起来</h1>
+    <p class="hero-subtitle">用 AI 结构化你的业务，让增长和利润成为系统结果。</p>
+    <div class="hero-buttons">
+      <button class="btn-primary">开始业务诊断 →</button>
+      <button class="btn-secondary">直接问蓝心 AI 💬</button>
+    </div>
+    <div class="hero-badges">
+      <div class="badge"><div class="badge-dot"></div> 3 分钟初诊</div>
+      <div class="badge"><div class="badge-dot"></div> AI 生成报告</div>
+      <div class="badge"><div class="badge-dot"></div> 找到优先突破口</div>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <div class="chat-widget" id="ai">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-avatar">蓝</div>
+        <div>
+          <div class="chat-name">蓝心 AI · 你的数字分身</div>
+          <div class="chat-sub">商业诊断助手</div>
+        </div>
+      </div>
+      <div class="online-badge">
+        <div class="online-dot"></div>
+        在线
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-msg">
+        你好，我是蓝心 AI。<br>
+        我会基于你的业务情况，帮你找到阻碍增长的关键问题，并给出优先解决方向。
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input class="chat-input" placeholder="你可以输入你的问题…" />
+      <button class="chat-send">→</button>
+    </div>
+  </div>
+
+  <!-- MISCONCEPTIONS -->
+  <div class="misconceptions">
+    <div class="misc-title">老板常见认知区</div>
+    <div class="misc-item">
+      <div class="misc-icon">⚙️</div>
+      <div class="misc-text">
+        <strong>我以为缺的是 AI 工具</strong>
+        <span>工具是放大的，结构才是永久盘</span>
+      </div>
+    </div>
+    <div class="misc-item">
+      <div class="misc-icon">📈</div>
+      <div class="misc-text">
+        <strong>我以为缺的是流量</strong>
+        <span>流量只是放大器，不是增长的本质</span>
+      </div>
+    </div>
+    <div class="misc-item">
+      <div class="misc-icon">👥</div>
+      <div class="misc-text">
+        <strong>我以为缺的是员工</strong>
+        <span>人未必效率高，系统才是关键</span>
+      </div>
+    </div>
+    <span class="misc-more">查看更多误区 →</span>
+  </div>
+
+</div>
+
+<!-- SECTION 2: 你想先解决什么 -->
+<section id="diagnosis">
+  <div class="section-inner">
+    <div class="section-label">诊断方向</div>
+    <h2 class="section-title">你想先解决什么问题？</h2>
+    <p class="section-sub">选择你当前最想突破的方向，我们帮你精准定位</p>
+
+    <div class="goal-grid">
+      <div class="goal-card">
+        <div class="goal-icon blue">↓</div>
+        <div class="goal-name">降低成本</div>
+        <div class="goal-desc">减少不必要的开支<br>提升人效与利润</div>
+        <div class="goal-arrow">→</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon green">🧑‍💼</div>
+        <div class="goal-name">老板脱身</div>
+        <div class="goal-desc">从繁琐事务中抽身<br>专注战略与增长</div>
+        <div class="goal-arrow">→</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon purple">AI</div>
+        <div class="goal-name">AI 介入业务</div>
+        <div class="goal-desc">用 AI 提效业务流程<br>实现人机协作</div>
+        <div class="goal-arrow">→</div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-icon orange">📊</div>
+        <div class="goal-name">生意自动转起来</div>
+        <div class="goal-desc">建立可复制的增长系统<br>实现持续增长</div>
+        <div class="goal-arrow">→</div>
+      </div>
+    </div>
+
+    <span class="more-link">查看更多诊断方向 →</span>
+  </div>
+</section>
+
+<!-- SECTION 3: 一次初诊，只需 4 步 -->
+<section class="alt">
+  <div class="section-inner">
+    <div class="section-label">诊断流程</div>
+    <h2 class="section-title">一次初诊，只需 4 步</h2>
+    <p class="section-sub">3 分钟了解现状，获得你的业务初诊报告</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">🎯</div>
+        <div class="step-name">选择目标</div>
+        <div class="step-desc">选择你最想突破的业务方向</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">📝</div>
+        <div class="step-name">补充情况</div>
+        <div class="step-desc">简单填写业务现状与核心信息</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">💬</div>
+        <div class="step-name">问蓝心 AI</div>
+        <div class="step-desc">与蓝心 AI 对话，深入诊断问题</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-icon">📋</div>
+        <div class="step-name">获取报告</div>
+        <div class="step-desc">获得你的初诊报告和优先建议</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: 你会拿到什么报告 -->
+<section>
+  <div class="section-inner">
+    <div class="section-label">报告预览</div>
+    <h2 class="section-title">你会拿到一份这样的初诊报告</h2>
+    <p class="section-sub">清晰呈现问题、方向和下一步行动建议</p>
+
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="report-card-header">
+          <span class="report-tag">初诊报告（示例）</span>
+          <span class="report-badge">仅需 3 分钟生成</span>
+        </div>
+        <div class="report-items">
+          <div class="report-item">
+            <div class="report-item-header">
+              <span class="report-item-icon">👤</span>
+              <span class="report-item-name">当前核心问题</span>
+            </div>
+            <div class="report-item-text">成交率偏高，转化链路不清晰，交付标准不统一</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-header">
+              <span class="report-item-icon" style="color:#16a34a">✓</span>
+              <span class="report-item-name">优先突破方向</span>
+            </div>
+            <div class="report-item-text">先优化成交链路和交付流程，提升转化效率</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-header">
+              <span class="report-item-icon">📅</span>
+              <span class="report-item-name">30 天启动建议</span>
+            </div>
+            <div class="report-item-text">梳理成交话语 → 优化话术模板 → 建立交付标准 → 小步验证</div>
+          </div>
+          <div class="report-item">
+            <div class="report-item-header">
+              <span class="report-item-icon" style="color:#d97706">⚡</span>
+              <span class="report-item-name">适合的下一步</span>
+            </div>
+            <div class="report-item-text">建议进行商业人效杠杆咨询，定制系统化解决方案</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-right">
+        <h3>报告不是终点，<br>而是起点</h3>
+        <p>初诊报告帮你看清问题和优先级，下一步可以选择更深入的咨询或落地方案，让你的生意真正实现增长。</p>
+        <button class="btn-cta">开始诊断，获取报告 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: 产品 -->
+<section class="alt" id="solutions">
+  <div class="section-inner">
+    <div class="section-label">下一步</div>
+    <h2 class="section-title">准备好让你的生意转起来了吗？</h2>
+    <p class="section-sub">从一次诊断开始，找到属于你的增长路径</p>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-icon">📊</div>
+        <div class="product-name">商业人效杠杆咨询</div>
+        <div class="product-desc">一对一深度咨询，定制你的业务系统解决方案</div>
+        <div class="product-fit">适合：需要系统性解决问题的老板</div>
+        <div class="product-link">了解详情 →</div>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">🚀</div>
+        <div class="product-name">AI CEO 飞轮加速计划</div>
+        <div class="product-desc">系统搭建 + AI 执行落地，打造可复制增长系统</div>
+        <div class="product-fit">适合：准备全面升级业务系统的老板</div>
+        <div class="product-link">了解详情 →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-stat">已帮助 200+ 位老板完成业务升级</div>
+  <div class="footer-logos">
+    <div class="footer-logo"><span>📕</span> 小红书</div>
+    <div class="footer-logo"><span>⭐</span> 知识星球</div>
+    <div class="footer-logo"><span>🎯</span> 得到</div>
+    <div class="footer-logo"><span>✈️</span> 飞书</div>
+    <div class="footer-logo"><span>☁️</span> 腾讯云</div>
+    <div class="footer-logo"><span>📚</span> 航书</div>
+  </div>
+</footer>
+
+</body>
+</html>
