@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文章 · 蓝心 AI</title>
+<meta name="description" content="蓝心关于商业、AI应用、创始人成长的原创文章">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "蓝心文章",
+  "url": "https://lanxinai.net/blog.html",
+  "author": {
+    "@type": "Person",
+    "name": "蓝心",
+    "url": "https://lanxinai.net"
+  },
+  "description": "蓝心关于商业、AI应用、创始人成长的原创文章"
+}
+</script>
+<style>
+:root {
+  --bg: #F6F1E8;
+  --navy: #102033;
+  --gold: #C99A2E;
+  --text: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #8a9bb0;
+  --white: #ffffff;
+  --card-bg: #ffffff;
+  --border: #e8e0d0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(246,241,232,0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.logo-text { font-size: 15px; font-weight: 600; color: var(--navy); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--navy); font-weight: 500; }
+
+.btn-nav {
+  background: var(--gold);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* PAGE HEADER */
+.page-header {
+  padding: 64px 48px 40px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.page-header p {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+/* FILTER TABS */
+.filter-bar {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 48px 32px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover { border-color: var(--gold); color: var(--navy); }
+.filter-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+/* ARTICLE LIST */
+.article-list {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.article-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.article-item:hover .article-title { color: var(--gold); }
+
+.article-left { flex: 1; }
+
+.article-tag {
+  display: inline-block;
+  font-size: 11px;
+  color: var(--gold);
+  background: rgba(201,154,46,0.08);
+  padding: 2px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 6px;
+  line-height: 1.5;
+  transition: color 0.2s;
+}
+
+.article-excerpt {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center;
+  padding: 80px 48px;
+  color: var(--text-muted);
+}
+
+.empty-state p { font-size: 15px; margin-top: 8px; }
+
+/* FOOTER */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 32px;
+  font-size: 13px;
+}
+
+footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .page-header { padding: 40px 20px 24px; }
+  .page-header h1 { font-size: 28px; }
+  .filter-bar { padding: 0 20px 24px; }
+  .article-list { padding: 0 20px 60px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><img src="avatar.jpg" alt="蓝心"></div>
+    <span class="logo-text">AI 蓝心</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">首页</a></li>
+    <li><a href="index.html#diagnosis">诊断系统</a></li>
+    <li><a href="index.html#ai">蓝心 AI</a></li>
+    <li><a href="index.html#solutions">解决方案</a></li>
+    <li><a href="index.html#cases">案例故事</a></li>
+    <li><a href="index.html#about">关于我们</a></li>
+    <li><a href="blog.html" class="active">文章</a></li>
+  </ul>
+  <button class="btn-nav" onclick="location.href='index.html#diagnosis'">开始诊断</button>
+</nav>
+
+<div class="page-header">
+  <h1>文章</h1>
+  <p>关于商业、AI应用、创始人成长的原创内容，持续更新中。</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterArticles('all', this)">全部</button>
+  <button class="filter-btn" onclick="filterArticles('business', this)">商业干货</button>
+  <button class="filter-btn" onclick="filterArticles('ai', this)">AI应用</button>
+  <button class="filter-btn" onclick="filterArticles('growth', this)">创始人成长</button>
+  <button class="filter-btn" onclick="filterArticles('case', this)">案例故事</button>
+</div>
+
+<div class="article-list" id="articleList">
+  <!-- 文章从这里开始添加，格式如下：
+  <a href="articles/文章文件名.html" class="article-item" data-category="business">
+    <div class="article-left">
+      <span class="article-tag">商业干货</span>
+      <div class="article-title">文章标题</div>
+      <div class="article-excerpt">文章摘要，两行以内。</div>
+    </div>
+    <div class="article-date">2026-06-21</div>
+  </a>
+  -->
+
+  <div class="empty-state">
+    <div style="font-size:32px">📝</div>
+    <p>文章整理中，即将上线</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 蓝心 AI · <a href="index.html">回到首页</a></p>
+</footer>
+
+<script>
+function filterArticles(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const items = document.querySelectorAll('.article-item');
+  items.forEach(item => {
+    if (category === 'all' || item.dataset.category === category) {
+      item.style.display = 'flex';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
