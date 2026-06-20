@@ -54,16 +54,18 @@ nav {
 }
 
 .logo-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--navy);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold);
-  font-size: 16px;
-  font-weight: 700;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  flex-shrink: 0;
+}
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .logo-text { line-height: 1.2; }
@@ -690,7 +692,7 @@ footer {
 <!-- NAV -->
 <nav>
   <div class="nav-logo">
-    <div class="logo-icon">蓝</div>
+    <div class="logo-icon"><img src="avatar.jpg" alt="蓝心"></div>
     <div class="logo-text">
       <span>蓝心 AI</span>
       <span>AI · CEO 飞轮系统</span>
