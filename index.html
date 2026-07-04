@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蓝心AI · 商业诊断系统</title>
+<title>蓝心 · 创始人经验资产化诊断</title>
+<meta name="description" content="蓝心，经验资产化操盘手。帮年营收30万+的小微创始人，把脑子里的隐性判断、决策逻辑和沟通语料，变成团队可执行、AI可调用的资产。">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -110,31 +111,56 @@ nav {
 
 /* HERO */
 .hero {
-  padding: 72px 48px 64px;
+  padding: 86px 48px 72px;
   display: grid;
-  grid-template-columns: 1fr 1.1fr 0.75fr;
-  gap: 32px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 44px;
   max-width: 1280px;
   margin: 0 auto;
-  align-items: start;
+  align-items: center;
 }
 
 .hero-left { padding-top: 16px; }
 
-.hero-title {
-  font-size: 44px;
+.hero-kicker {
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.15;
   color: var(--navy);
-  letter-spacing: -0.5px;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-size: 68px;
+  font-weight: 900;
+  line-height: 1.04;
+  color: var(--navy);
+  letter-spacing: 0;
+  margin-bottom: 28px;
+}
+
+.hero-title .highlight {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+
+.hero-title .highlight::after {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  bottom: 8px;
+  height: 28%;
+  background: var(--gold);
+  z-index: -1;
 }
 
 .hero-subtitle {
-  font-size: 14px;
+  font-size: 22px;
   color: var(--text-secondary);
-  margin-bottom: 36px;
-  line-height: 1.7;
+  margin-bottom: 40px;
+  line-height: 1.75;
+  max-width: 780px;
 }
 
 .hero-buttons {
@@ -179,6 +205,14 @@ nav {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+.hero-visual {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 18px 60px rgba(16,32,51,0.08);
 }
 
 .badge {
@@ -690,28 +724,29 @@ footer {
   "@type": "Person",
   "name": "蓝心",
   "url": "https://lanxinai.net",
-  "description": "商业顾问，专注解决创始人经验结构化沉淀难题，将创始人能力系统化放大，让AI可执行、团队可复制，实现创始人脱离重复工作。",
-  "knowsAbout": ["商业咨询", "AI应用", "创始人脱身", "经验系统化", "人效杠杆"],
+  "description": "经验资产化操盘手，帮年营收30万+的小微创始人，把脑子里的隐性判断、决策逻辑和沟通语料，变成团队可执行、AI可调用的资产。",
+  "knowsAbout": ["经验资产化", "创始人自我复制", "隐性经验提取", "团队可执行", "AI可调用", "四个断层"],
   "offers": [
     {
       "@type": "Service",
-      "name": "AI商业初诊",
-      "description": "通过AI对话完成业务初诊，生成初诊报告",
+      "name": "经验断层诊断",
+      "description": "定位创始人经验卡在知识、流程、标准、角色哪一层，生成初步诊断结果",
       "url": "https://lanxinai.net"
     },
     {
       "@type": "Service",
-      "name": "商业人效杠杆咨询",
-      "description": "深度一对一咨询，帮助创始人系统化自身经验"
+      "name": "经验资产化模块",
+      "description": "12周把日销、流量或发售经验提取并建成可运转系统"
     },
     {
       "@type": "Service",
-      "name": "AI CEO飞轮加速计划",
-      "description": "从0到系统落地，让生意自动运转"
+      "name": "AI可调用经验资产建设",
+      "description": "把创始人的判断规则、触发流程、输出标准和角色边界结构化，让团队可执行、AI可调用"
     }
   ]
 }
 </script>
+<link rel="stylesheet" href="diagnosis.css">
 </head>
 <body>
 
@@ -723,14 +758,14 @@ footer {
   </div>
   <ul class="nav-links">
     <li><a href="#" class="active">首页</a></li>
-    <li><a href="#diagnosis">诊断系统</a></li>
-    <li><a href="#ai">蓝心 AI</a></li>
-    <li><a href="#solutions">解决方案</a></li>
-    <li><a href="#cases">案例故事</a></li>
-    <li><a href="#about">关于我们</a></li>
-    <li><a href="blog.html">文章</a></li>
+    <li><a href="#diagnosis">业务诊断</a></li>
+    <li><a href="#articles">文章</a></li>
+    <li><a href="#solutions">产品服务</a></li>
+    <li><a href="#about">关于蓝心</a></li>
+    
+    <li><a href="blog.html">文章库</a></li>
   </ul>
-  <button class="btn-nav">开始诊断</button>
+  <button class="btn-nav" onclick="startDiagnosis()">开始诊断</button>
 </nav>
 
 <!-- HERO -->
@@ -738,18 +773,21 @@ footer {
 
   <!-- LEFT -->
   <div class="hero-left">
-    <h1 class="hero-title">把你脑子里的经验<br>变成团队可执行的资产</h1>
-    <p class="hero-subtitle">过去，创始人是公司的天花板<br>未来，创始人是公司的模版</p>
+    <div class="hero-kicker">专注小微老板</div>
+    <h1 class="hero-title"><span class="highlight">经验资产化</span></h1>
+    <p class="hero-subtitle">把老板脑子里的经验变成 AI 的超级燃料，让老板的个人能力成为公司核心生产力。</p>
     <div class="hero-buttons">
-      <button class="btn-primary" onclick="document.getElementById('diagnosis').scrollIntoView({behavior:'smooth'})">开始业务诊断 →</button>
-      <button class="btn-secondary">直接问蓝心 AI 💬</button>
+      <button class="btn-primary" onclick="startDiagnosis()">开始业务诊断 →</button>
+      <button class="btn-secondary" onclick="document.getElementById('solutions').scrollIntoView({behavior:'smooth'})">看服务说明 →</button>
     </div>
     <div class="hero-badges">
-      <div class="badge"><div class="badge-dot"></div> 3 分钟初诊</div>
-      <div class="badge"><div class="badge-dot"></div> AI 生成报告</div>
-      <div class="badge"><div class="badge-dot"></div> 找到优先突破口</div>
+      <div class="badge"><div class="badge-dot"></div> 业务诊断入口</div>
+      <div class="badge"><div class="badge-dot"></div> AI 经验资产</div>
+      <div class="badge"><div class="badge-dot"></div> 小微老板适用</div>
     </div>
   </div>
+
+  <div class="hero-visual">
 
   <!-- CHAT WIDGET -->
   <div class="chat-widget" id="ai">
@@ -757,8 +795,8 @@ footer {
       <div class="chat-header-left">
         <div class="chat-avatar">蓝</div>
         <div>
-          <div class="chat-name">蓝心 AI · 你的数字分身</div>
-          <div class="chat-sub">商业诊断助手</div>
+          <div class="chat-name">蓝心 AI · 经验资产化入口</div>
+          <div class="chat-sub">小微老板业务诊断</div>
         </div>
       </div>
       <div class="online-badge">
@@ -769,7 +807,7 @@ footer {
     <div class="chat-body">
       <div class="chat-msg">
         你好，我是蓝心 AI。<br>
-        我会基于你的业务情况，帮你找到阻碍增长的关键问题，并给出优先解决方向。
+        先从你的业务卡点进入，再把老板经验整理成 AI 和团队能复用的经营资产。
       </div>
     </div>
     <div class="chat-footer">
@@ -780,190 +818,200 @@ footer {
 
   <!-- MISCONCEPTIONS -->
   <div class="misconceptions">
-    <div class="misc-title">老板常见认知区</div>
+    <div class="misc-title">创始人常见误区</div>
     <div class="misc-item">
       <div class="misc-icon">⚙️</div>
       <div class="misc-text">
         <strong>我以为缺的是 AI 工具</strong>
-        <span>工具是放大的，结构才是永久盘</span>
+        <span>经验没有结构化，AI只是空壳</span>
       </div>
     </div>
     <div class="misc-item">
       <div class="misc-icon">📈</div>
       <div class="misc-text">
         <strong>我以为缺的是流量</strong>
-        <span>流量只是放大器，不是增长的本质</span>
+        <span>流量放大的，是你已有的判断系统</span>
       </div>
     </div>
     <div class="misc-item">
       <div class="misc-icon">👥</div>
       <div class="misc-text">
         <strong>我以为缺的是员工</strong>
-        <span>人未必效率高，系统才是关键</span>
+        <span>员工接不住，是因为判断还在你脑子里</span>
       </div>
     </div>
     <span class="misc-more">查看更多误区 →</span>
   </div>
 
+  </div>
 </div>
 
-<!-- SECTION 2: 你想先解决什么 -->
+<!-- SECTION 2: 诊断入口 -->
 <section id="diagnosis">
   <div class="section-inner">
-    <div class="section-label">诊断方向</div>
-    <h2 class="section-title">你想先解决什么问题？</h2>
-    <p class="section-sub">选择你当前最想突破的方向，我们帮你精准定位</p>
+    <div class="section-label">业务诊断</div>
+    <h2 class="section-title">先从你现在最卡的业务问题进入</h2>
+    <p class="section-sub">首页只承接问题，不讲复杂方法。用户先选一个最像自己的卡点，再进入完整诊断。</p>
 
     <div class="goal-grid">
-      <div class="goal-card" onclick="scrollToAI('降低成本')">
-        <div class="goal-icon blue">↓</div>
-        <div class="goal-name">降低成本</div>
-        <div class="goal-desc">减少不必要的开支<br>提升人效与利润</div>
+      <div class="goal-card" onclick="startDiagnosis()">
+        <div class="goal-icon blue">流</div>
+        <div class="goal-name">流量不稳</div>
+        <div class="goal-desc">客户来源不稳定<br>曝光来了也接不住</div>
         <div class="goal-arrow">→</div>
       </div>
-      <div class="goal-card" onclick="scrollToAI('老板脱身')">
-        <div class="goal-icon green">🧑‍💼</div>
-        <div class="goal-name">老板脱身</div>
-        <div class="goal-desc">从繁琐事务中抽身<br>专注战略与增长</div>
+      <div class="goal-card" onclick="startDiagnosis()">
+        <div class="goal-icon green">品</div>
+        <div class="goal-name">产品说不清</div>
+        <div class="goal-desc">客户听完没感觉<br>价值表达不聚焦</div>
         <div class="goal-arrow">→</div>
       </div>
-      <div class="goal-card" onclick="scrollToAI('AI介入业务')">
-        <div class="goal-icon purple">AI</div>
-        <div class="goal-name">AI 介入业务</div>
-        <div class="goal-desc">用 AI 提效业务流程<br>实现人机协作</div>
+      <div class="goal-card" onclick="startDiagnosis()">
+        <div class="goal-icon purple">成</div>
+        <div class="goal-name">成交卡住</div>
+        <div class="goal-desc">咨询不少<br>客户犹豫、嫌贵、拖延</div>
         <div class="goal-arrow">→</div>
       </div>
-      <div class="goal-card" onclick="scrollToAI('生意自动转起来')">
-        <div class="goal-icon orange">📊</div>
-        <div class="goal-name">生意自动转起来</div>
-        <div class="goal-desc">建立可复制的增长系统<br>实现持续增长</div>
+      <div class="goal-card" onclick="startDiagnosis()">
+        <div class="goal-icon orange">交</div>
+        <div class="goal-name">交付太重</div>
+        <div class="goal-desc">事情都靠老板盯<br>客户一多就扛不住</div>
         <div class="goal-arrow">→</div>
       </div>
     </div>
 
-    <span class="more-link">查看更多诊断方向 →</span>
+    <span class="more-link" onclick="startDiagnosis()">开始完整诊断 →</span>
   </div>
 </section>
 
-<!-- SECTION 3: 一次初诊，只需 4 步 -->
+<!-- SECTION 3: 诊断结果 -->
 <section class="alt">
   <div class="section-inner">
-    <div class="section-label">诊断流程</div>
-    <h2 class="section-title">一次初诊，只需 4 步</h2>
-    <p class="section-sub">3 分钟了解现状，获得你的业务初诊报告</p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-icon">🎯</div>
-        <div class="step-name">选择目标</div>
-        <div class="step-desc">选择你最想突破的业务方向</div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-icon">📝</div>
-        <div class="step-name">补充情况</div>
-        <div class="step-desc">简单填写业务现状与核心信息</div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-icon">💬</div>
-        <div class="step-name">问蓝心 AI</div>
-        <div class="step-desc">与蓝心 AI 对话，深入诊断问题</div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-icon">📋</div>
-        <div class="step-name">获取报告</div>
-        <div class="step-desc">获得你的初诊报告和优先建议</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 4: 你会拿到什么报告 -->
-<section>
-  <div class="section-inner">
-    <div class="section-label">报告预览</div>
-    <h2 class="section-title">你会拿到一份这样的初诊报告</h2>
-    <p class="section-sub">清晰呈现问题、方向和下一步行动建议</p>
+    <div class="section-label">结果预览</div>
+    <h2 class="section-title">诊断先给你一个可执行判断</h2>
+    <p class="section-sub">先判断增长卡在哪一段，再决定是否进入深度诊断和经验资产化服务。</p>
 
     <div class="report-grid">
       <div class="report-card">
         <div class="report-card-header">
-          <span class="report-tag">初诊报告（示例）</span>
-          <span class="report-badge">仅需 3 分钟生成</span>
+          <span class="report-tag">诊断结果示例</span>
+          <span class="report-badge">自动生成</span>
         </div>
         <div class="report-items">
           <div class="report-item">
-            <div class="report-item-header">
-              <span class="report-item-icon">👤</span>
-              <span class="report-item-name">当前核心问题</span>
-            </div>
-            <div class="report-item-text">成交率偏高，转化链路不清晰，交付标准不统一</div>
+            <div class="report-item-header"><span class="report-item-icon">01</span><span class="report-item-name">当前业务卡点</span></div>
+            <div class="report-item-text">先判断主要卡在流量、产品、成交，还是交付。</div>
           </div>
           <div class="report-item">
-            <div class="report-item-header">
-              <span class="report-item-icon" style="color:#16a34a">✓</span>
-              <span class="report-item-name">优先突破方向</span>
-            </div>
-            <div class="report-item-text">先优化成交链路和交付流程，提升转化效率</div>
+            <div class="report-item-header"><span class="report-item-icon">02</span><span class="report-item-name">影响增长的原因</span></div>
+            <div class="report-item-text">用业务事实解释为什么营收卡住，不提前讲后端方法论。</div>
           </div>
           <div class="report-item">
-            <div class="report-item-header">
-              <span class="report-item-icon">📅</span>
-              <span class="report-item-name">30 天启动建议</span>
-            </div>
-            <div class="report-item-text">梳理成交话语 → 优化话术模板 → 建立交付标准 → 小步验证</div>
+            <div class="report-item-header"><span class="report-item-icon">03</span><span class="report-item-name">下一步优先动作</span></div>
+            <div class="report-item-text">给出当前最该先改的一步，减少无效尝试。</div>
           </div>
           <div class="report-item">
-            <div class="report-item-header">
-              <span class="report-item-icon" style="color:#d97706">⚡</span>
-              <span class="report-item-name">适合的下一步</span>
-            </div>
-            <div class="report-item-text">建议进行商业人效杠杆咨询，定制系统化解决方案</div>
+            <div class="report-item-header"><span class="report-item-icon">04</span><span class="report-item-name">是否需要深度诊断</span></div>
+            <div class="report-item-text">需要继续拆时，再进入一对一诊断和后端服务承接。</div>
           </div>
         </div>
       </div>
 
       <div class="report-right">
-        <h3>报告不是终点，<br>而是起点</h3>
-        <p>初诊报告帮你看清问题和优先级，下一步可以选择更深入的咨询或落地方案，让你的生意真正实现增长。</p>
-        <button class="btn-cta">开始诊断，获取报告 →</button>
+        <h3>诊断是入口，后端才进入经验资产化</h3>
+        <p>前台先处理老板能感知的业务卡点。报告和咨询环节再把卡点归因到经验、流程、团队和 AI 的复用问题。</p>
+        <button class="btn-cta" onclick="startDiagnosis()">开始诊断 →</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 5: 产品 -->
-<section class="alt" id="solutions">
+<!-- SECTION 4: 服务承接 -->
+<section id="solutions">
   <div class="section-inner">
-    <div class="section-label">下一步</div>
-    <h2 class="section-title">准备好让你的生意转起来了吗？</h2>
-    <p class="section-sub">从一次诊断开始，找到属于你的增长路径</p>
+    <div class="section-label">产品服务</div>
+    <h2 class="section-title">从业务诊断，进入经验资产化服务</h2>
+    <p class="section-sub">网站 1.0 先保留清晰承接，不把后端服务讲复杂。</p>
 
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-icon">📊</div>
-        <div class="product-name">商业人效杠杆咨询</div>
-        <div class="product-desc">一对一深度咨询，定制你的业务系统解决方案</div>
-        <div class="product-fit">适合：需要系统性解决问题的老板</div>
-        <div class="product-link">了解详情 →</div>
+        <div class="product-icon">诊</div>
+        <div class="product-name">业务增长诊断</div>
+        <div class="product-desc">通过问卷和报告判断当前增长卡点，适合第一次进入蓝心服务的用户。</div>
+        <div class="product-fit">定位：低门槛入口</div>
+        <div class="product-link" onclick="startDiagnosis()">开始诊断 →</div>
       </div>
       <div class="product-card">
-        <div class="product-icon">🚀</div>
-        <div class="product-name">AI CEO 飞轮加速计划</div>
-        <div class="product-desc">系统搭建 + AI 执行落地，打造可复制增长系统</div>
-        <div class="product-fit">适合：准备全面升级业务系统的老板</div>
-        <div class="product-link">了解详情 →</div>
+        <div class="product-icon">咨</div>
+        <div class="product-name">一对一深度诊断</div>
+        <div class="product-desc">基于诊断结果继续拆业务结构，判断下一步该改产品、成交、交付还是后端系统。</div>
+        <div class="product-fit">定位：咨询承接</div>
+        <div class="product-link">预约咨询 →</div>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">资</div>
+        <div class="product-name">经验资产化服务</div>
+        <div class="product-desc">把老板长期有效的判断、话术、流程和交付方法整理成团队与 AI 可复用的资产。</div>
+        <div class="product-fit">定位：核心后端</div>
+        <div class="product-link">查看说明 →</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- SECTION 5: 文章入口 -->
+<section class="alt" id="articles">
+  <div class="section-inner">
+    <div class="section-label">文章</div>
+    <h2 class="section-title">用文章承接搜索和 AI 收录</h2>
+    <p class="section-sub">文章围绕小微老板的增长问题、经验资产化和 AI 复用来写，先保证网站有可被引用的内容入口。</p>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-name">增长卡点</div>
+        <div class="product-desc">写流量、产品、成交、交付中常见的具体问题。</div>
+        <a class="product-link" href="blog.html">查看文章 →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-name">经验资产化</div>
+        <div class="product-desc">写老板经验如何沉淀为标准、流程、话术和案例。</div>
+        <a class="product-link" href="blog.html">查看文章 →</a>
+      </div>
+      <div class="product-card">
+        <div class="product-name">AI 经营应用</div>
+        <div class="product-desc">写 AI 如何调用老板经验，而不是停留在工具使用。</div>
+        <a class="product-link" href="blog.html">查看文章 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 关于蓝心 -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">关于蓝心</div>
+    <h2 class="section-title">蓝心 | AI·CEO飞轮 创始人</h2>
+    <p class="section-sub">专注小微老板经验资产化。把老板脑子里的经验变成 AI 的超级燃料，让老板的个人能力成为公司核心生产力。</p>
+    <div class="report-right">
+      <button class="btn-cta" onclick="startDiagnosis()">从一次业务诊断开始 →</button>
+    </div>
+  </div>
+</section>
+<!-- DIAGNOSIS APP -->
+<div class="diagnosis-overlay" id="diagnosisApp" aria-hidden="true">
+  <div class="diagnosis-topbar">
+    <div class="diagnosis-topbar-inner">
+      <div class="diagnosis-progress-track"><div class="diagnosis-progress-fill" id="diagnosisProgress"></div></div>
+      <button class="diagnosis-close" type="button" id="diagnosisClose" aria-label="关闭诊断">×</button>
+    </div>
+  </div>
+  <main class="diagnosis-shell">
+    <div id="diagnosisMount"></div>
+  </main>
+</div>
 <!-- FOOTER -->
 <footer>
-  <div class="footer-stat">已帮助 200+ 位老板完成业务升级</div>
+  <div class="footer-stat">创始人能不能完成自我复制，才是 AI 时代的终极竞争</div>
   <div class="footer-logos">
     <div class="footer-logo"><span>📕</span> 小红书</div>
     <div class="footer-logo"><span>⭐</span> 知识星球</div>
@@ -971,6 +1019,7 @@ footer {
     <div class="footer-logo"><span>✈️</span> 飞书</div>
     <div class="footer-logo"><span>☁️</span> 腾讯云</div>
     <div class="footer-logo"><span>📚</span> 航书</div>
+    <a class="footer-logo" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">桂ICP备2026013788号</a>
   </div>
 </footer>
 
@@ -985,5 +1034,6 @@ function scrollToAI(topic) {
   }, 600);
 }
 </script>
+<script src="diagnosis.js"></script>
 </body>
 </html>
