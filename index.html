@@ -790,7 +790,6 @@ footer {
 
   <!-- LEFT -->
   <div class="hero-left">
-    <div class="hero-kicker">专注年营收30万+创始人</div>
     <h1 class="hero-title">你的经验，<br><span class="highlight">正在被浪费。</span></h1>
     <p class="hero-subtitle">你脑子里赚钱的方法，现在只服务你一个人。</p>
     <p class="hero-proof">帮年营收30万+的创始人，把脑子里的经验变成团队可执行的资产，不再是你一个人拉全公司的增长。</p>
@@ -801,34 +800,6 @@ footer {
     </div>
   </div>
   <div class="hero-visual">
-
-  <!-- CHAT WIDGET -->
-  <div class="chat-widget" id="ai">
-    <div class="chat-header">
-      <div class="chat-header-left">
-        <div class="chat-avatar">蓝</div>
-        <div>
-          <div class="chat-name">蓝心 AI · 经验资产化入口</div>
-          <div class="chat-sub">小微老板业务诊断</div>
-        </div>
-      </div>
-      <div class="online-badge">
-        <div class="online-dot"></div>
-        在线
-      </div>
-    </div>
-    <div class="chat-body">
-      <div class="chat-msg">
-        你好，我是蓝心 AI。<br>
-        先从你的业务卡点进入，再把老板经验整理成 AI 和团队能复用的经营资产。
-      </div>
-    </div>
-    <div class="chat-footer">
-      <input class="chat-input" placeholder="你可以输入你的问题…" />
-      <button class="chat-send">→</button>
-    </div>
-  </div>
-
   <!-- MISCONCEPTIONS -->
   <div class="misconceptions">
     <div class="misc-title">创始人常见误区</div>
@@ -1038,13 +1009,7 @@ footer {
 
 <script>
 function scrollToAI(topic) {
-  const el = document.getElementById('ai');
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(() => {
-    const input = document.querySelector('.chat-input');
-    input.value = '我想解决：' + topic;
-    input.focus();
-  }, 600);
+  startDiagnosis();
 }
 </script>
 <script src="diagnosis.js"></script>
